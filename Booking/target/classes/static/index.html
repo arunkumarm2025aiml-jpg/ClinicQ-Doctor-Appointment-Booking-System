@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ClinicQ - Doctor Appointment System</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+
+<header class="navbar">
+
+    <div class="logo">
+        <div class="logo-icon">✚</div>
+        <div>
+            <h2>Clinic<span>Q</span></h2>
+            <small>Smart Healthcare</small>
+        </div>
+    </div>
+
+    <nav>
+        <a href="#dashboard">Dashboard</a>
+        <a href="#doctors">Doctors</a>
+        <a href="#appointments">Appointments</a>
+    </nav>
+
+    <button class="nav-button" onclick="showSection('appointment')">
+        Book Appointment
+    </button>
+
+</header>
+
+
+<!-- ================= HERO ================= -->
+
+<section class="hero" id="dashboard">
+
+    <div class="hero-content">
+
+        <div class="hero-text">
+
+            <div class="welcome-badge">
+                ● Welcome to ClinicQ
+            </div>
+
+            <h1>
+                Your Health.<br>
+                <span>Your Time.</span><br>
+                Our Care.
+            </h1>
+
+            <p>
+                Book appointments with trusted doctors quickly
+                and manage your healthcare in one simple place.
+            </p>
+
+            <div class="hero-buttons">
+
+                <button class="primary-button"
+                        onclick="showSection('appointment')">
+                    Book an Appointment →
+                </button>
+
+                <button class="secondary-button"
+                        onclick="showSection('doctors')">
+                    Find a Doctor
+                </button>
+
+            </div>
+
+        </div>
+
+        <div class="hero-card">
+
+            <div class="doctor-image">
+                👨‍⚕️
+            </div>
+
+            <div class="floating-card card-one">
+                <strong>✓</strong>
+                <div>
+                    <b>Easy Booking</b>
+                    <small>Book in seconds</small>
+                </div>
+            </div>
+
+            <div class="floating-card card-two">
+                <strong>24/7</strong>
+                <div>
+                    <b>Healthcare</b>
+                    <small>Always available</small>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= STATS ================= -->
+
+<section class="stats">
+
+    <div class="stat-card">
+        <div class="stat-icon">👨‍⚕️</div>
+        <div>
+            <h2 id="doctorCount">0</h2>
+            <p>Doctors</p>
+        </div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-icon">👤</div>
+        <div>
+            <h2 id="patientCount">0</h2>
+            <p>Patients</p>
+        </div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-icon">📅</div>
+        <div>
+            <h2 id="appointmentCount">0</h2>
+            <p>Appointments</p>
+        </div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-icon">🕐</div>
+        <div>
+            <h2>24/7</h2>
+            <p>Support</p>
+        </div>
+    </div>
+
+</section>
+
+
+<!-- ================= DOCTORS ================= -->
+
+<section class="section" id="doctors">
+
+    <div class="section-heading">
+
+        <div>
+            <span class="section-label">OUR SPECIALISTS</span>
+            <h2>Meet Our Doctors</h2>
+            <p>Choose from our experienced healthcare professionals.</p>
+        </div>
+
+        <button class="outline-button" onclick="loadDoctors()">
+            Refresh Doctors ↻
+        </button>
+
+    </div>
+
+    <div class="doctor-grid" id="doctorList">
+
+        <div class="loading">
+            Loading doctors...
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= APPOINTMENT ================= -->
+
+<section class="appointment-section" id="appointment">
+
+    <div class="appointment-container">
+
+        <div class="appointment-info">
+
+            <span class="section-label">QUICK BOOKING</span>
+
+            <h2>
+                Schedule Your<br>
+                <span>Appointment</span>
+            </h2>
+
+            <p>
+                Select a doctor, choose an available slot,
+                and confirm your appointment.
+            </p>
+
+            <div class="info-item">
+                <span>✓</span>
+                <div>
+                    <b>Easy Booking</b>
+                    <small>Simple and fast appointment process</small>
+                </div>
+            </div>
+
+            <div class="info-item">
+                <span>✓</span>
+                <div>
+                    <b>Available Slots</b>
+                    <small>Choose a convenient time</small>
+                </div>
+            </div>
+
+            <div class="info-item">
+                <span>✓</span>
+                <div>
+                    <b>Instant Confirmation</b>
+                    <small>Your appointment is recorded immediately</small>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="booking-card">
+
+            <h3>Book Appointment</h3>
+            <p class="form-subtitle">
+                Fill in the details below
+            </p>
+
+            <label>Patient ID</label>
+
+            <input
+                type="number"
+                id="patientId"
+                placeholder="Enter patient ID">
+
+
+            <label>Doctor</label>
+
+            <select id="doctorSelect"
+                    onchange="loadDoctorSlots()">
+
+                <option value="">
+                    Select a doctor
+                </option>
+
+            </select>
+
+
+            <label>Appointment Date</label>
+
+            <input
+                type="date"
+                id="appointmentDate"
+                onchange="loadDoctorSlots()">
+
+
+            <label>Available Slot</label>
+
+            <select id="slotSelect">
+
+                <option value="">
+                    Select an available slot
+                </option>
+
+            </select>
+
+
+            <button class="book-button"
+                    onclick="bookAppointment()">
+
+                Confirm Appointment →
+
+            </button>
+
+            <div id="bookingMessage"></div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= APPOINTMENTS ================= -->
+
+<section class="section" id="appointments">
+
+    <div class="section-heading">
+
+        <div>
+            <span class="section-label">APPOINTMENT MANAGEMENT</span>
+            <h2>My Appointments</h2>
+            <p>View and manage your appointments.</p>
+        </div>
+
+        <div class="appointment-search">
+
+            <input
+                type="number"
+                id="searchPatientId"
+                placeholder="Patient ID">
+
+            <button
+                class="outline-button"
+                onclick="loadPatientAppointments()">
+
+                View
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <div id="appointmentList" class="appointment-list">
+
+        <div class="empty-state">
+            Enter a patient ID to view appointments.
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <div class="footer-logo">
+        ✚ Clinic<span>Q</span>
+    </div>
+
+    <p>
+        Smart Doctor Appointment Booking System
+    </p>
+
+    <p class="copyright">
+        © 2026 ClinicQ. All rights reserved.
+    </p>
+
+</footer>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
